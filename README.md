@@ -9,8 +9,14 @@ be passed to PostPage to demonstrate navigation using Named Routes with argument
 To Navigate, there are two Navigators set: 
 one on `MyApp()` - run in main(), and the other one is on `NavigatorPage`
 
+![Navigator flow](https://user-images.githubusercontent.com/4143153/133398753-401ab2c2-1b18-4274-a0b3-4eb9362750c9.png)
+
+
 The reason for using two Navigators is so we could utilize a single AppBar and update the
 route displayed on the browser's address bar on web.
+
+![Demo](https://user-images.githubusercontent.com/4143153/133398626-de27d502-7a12-49a9-b2bb-ed34982da4f7.gif)
+
 
 ### Contributing
 
