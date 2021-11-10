@@ -155,6 +155,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
   int drawerDelay = 300;
   bool? authState;
   final _repository = Repository();
+  String? _currentPage;
 
   @override
   void initState() {
@@ -194,6 +195,8 @@ class _NavigatorPageState extends State<NavigatorPage> {
           WidgetBuilder builder;
           // Manage your route names here
           // switch (settings.name) {
+          /// Update [_currentPage] with current Route name
+          _currentPage = widget.route;
           switch (widget.route) {
 
             /// Default page displayed on Home Screen
@@ -268,11 +271,13 @@ class _NavigatorPageState extends State<NavigatorPage> {
             // Then close the drawer
             Navigator.pop(context);
 
-            /// [drawerDelay] gives time to animate the closing of the Drawer
-            Timer(Duration(milliseconds: drawerDelay), () async {
-              widget.navigatorKey.currentState!
-                  .pushNamedAndRemoveUntil(Nemo.home, (Route route) => false);
-            });
+            if(_currentPage != Nemo.home) {
+              /// [drawerDelay] gives time to animate the closing of the Drawer
+              Timer(Duration(milliseconds: drawerDelay), () async {
+                widget.navigatorKey.currentState!
+                    .pushNamedAndRemoveUntil(Nemo.home, (Route route) => false);
+              });
+            }
           },
         ),
         ListTile(
@@ -283,9 +288,11 @@ class _NavigatorPageState extends State<NavigatorPage> {
             // Then close the drawer
             Navigator.pop(context);
 
-            Timer(Duration(milliseconds: drawerDelay), () async {
-              widget.navigatorKey.currentState!.pushNamed(Nemo.profile);
-            });
+            if(_currentPage != Nemo.profile) {
+              Timer(Duration(milliseconds: drawerDelay), () async {
+                widget.navigatorKey.currentState!.pushNamed(Nemo.profile);
+              });
+            }
           },
         ),
         ListTile(
@@ -296,9 +303,11 @@ class _NavigatorPageState extends State<NavigatorPage> {
             // Then close the drawer
             Navigator.pop(context);
 
-            Timer(Duration(milliseconds: drawerDelay), () async {
-              widget.navigatorKey.currentState!.pushNamed(Nemo.settings);
-            });
+            if(_currentPage != Nemo.settings) {
+              Timer(Duration(milliseconds: drawerDelay), () async {
+                widget.navigatorKey.currentState!.pushNamed(Nemo.settings);
+              });
+            }
           },
         ),
         ListTile(
@@ -318,7 +327,8 @@ class _NavigatorPageState extends State<NavigatorPage> {
             /// Update auth state on SharedPreferences
             _repository.setAuthState(false);
             Timer(Duration(milliseconds: drawerDelay), () async {
-              widget.navigatorKey.currentState!.pushNamedAndRemoveUntil(Nemo.login, (Route route) => false);
+              widget.navigatorKey.currentState!
+                  .pushNamedAndRemoveUntil(Nemo.login, (Route route) => false);
             });
           },
         ),
